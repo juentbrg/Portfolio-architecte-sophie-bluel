@@ -105,15 +105,27 @@ if (localStorage.length > 0) {
   let log = document.querySelector("#log");
   let login = document.querySelector(".login");
   let logout = document.createElement("a");
+  let editor = document.querySelector(".editor");
+  let edit = document.querySelectorAll(".edit.hide");
+
   log.removeChild(login);
   logout.innerText = "logout";
   logout.classList.add("logout");
   log.appendChild(logout);
+  editor.classList.remove("hide");
+  for (let i = 0; i < edit.length; i++) {
+    edit[i].classList.remove("hide");
+  }
+
   logout.addEventListener("click", () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
     log.removeChild(logout);
     log.appendChild(login);
+    editor.classList.add("hide");
+    for (let i = 0; i < edit.length; i++) {
+      edit[i].classList.add("hide");
+    }
   });
 }
 //Login End
