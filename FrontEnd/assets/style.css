@@ -67,6 +67,9 @@ main{
 	margin: auto;
 }
 
+.title{
+	text-decoration: none;
+}
 h1{
 	display: flex;
 	flex-direction: column;
@@ -98,6 +101,7 @@ nav ul {
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
+	cursor: pointer;
 }
 nav li a{
 	text-decoration: none;

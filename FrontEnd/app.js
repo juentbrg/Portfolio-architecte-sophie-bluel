@@ -65,33 +65,55 @@ const filterCategory = (event) => {
 //Adding end
 
 //Login
-const form = document.querySelector("#signInForm");
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const emailValue = document.querySelector("#email").value;
-  const passwordValue = document.querySelector("#password").value;
-  fetch("http://localhost:5678/api/users/login", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email: emailValue,
-      password: passwordValue,
-    }),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      let token = data.token;
-      console.log(token);
-      if (data.userId == undefined) {
-        let error = document.querySelector(".error");
-        error.innerText = "Adresse email ou mot de passe incorrect";
-      } else {
-        document.location.href = "index.html";
-      }
+try {
+  const form = document.querySelector("#signInForm");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const emailValue = document.querySelector("#email").value;
+    const passwordValue = document.querySelector("#password").value;
+    fetch("http://localhost:5678/api/users/login", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: emailValue,
+        password: passwordValue,
+      }),
     })
-    .catch((err) => {});
-});
+      .then((res) => res.json())
+      .then((data) => {
+        if (!data.userId) {
+          let error = document.querySelector(".error");
+          error.innerText = "Erreur dans l’identifiant ou le mot de passe";
+        } else {
+          login(data);
+        }
+      })
+      .catch((err) => {});
+  });
+} catch (error) {}
+
+let login = (datas) => {
+  localStorage.setItem("token", datas.token);
+  localStorage.setItem("userId", datas.userId);
+  document.location.href = "index.html";
+};
+
+if (localStorage.length > 0) {
+  let log = document.querySelector("#log");
+  let login = document.querySelector(".login");
+  let logout = document.createElement("a");
+  log.removeChild(login);
+  logout.innerText = "logout";
+  logout.classList.add("logout");
+  log.appendChild(logout);
+  logout.addEventListener("click", () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    log.removeChild(logout);
+    log.appendChild(login);
+  });
+}
 //Login End
