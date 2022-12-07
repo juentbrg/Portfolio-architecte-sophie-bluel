@@ -246,7 +246,7 @@ li:hover, a:hover {
 }
 #contact {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
 #contact > * {
 	text-align: center;
@@ -367,3 +367,205 @@ footer nav ul {
 	transform: translate(-50%);
 }
 /*Login end----------------------------------------------------------------------------------------*/
+
+/*Modal--------------------------------------------------------------------------------------------*/
+.modal{
+	margin-top: 0;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.3);
+}
+.galleryAndAdd{
+	display: flex;
+	width: 630px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	overflow: hidden;
+}
+.modalContent{
+	min-width: 420px;
+	border-radius: 10px;
+	padding: 60px 105px 48px 105px;
+	background-color: #FFF;
+}
+
+.modalContent .xMark{
+	font-size: 20px;
+	float: right;
+	cursor: pointer;
+}
+.galleryTitle{
+	margin-top: 26px;
+	margin-bottom: 46px;
+	font-family: 'Work Sans';
+	font-weight: 400;
+	font-size: 26px;
+	text-align: center;
+	color: #000;
+}
+.modalGalleryContent {
+	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	grid-column-gap: 6px;
+	grid-row-gap: 12px;
+}
+.modalGalleryContent figure{
+	position: relative;
+}
+.modalGalleryContent img{
+	height: 104px;
+	width: 78px;
+}
+.modalGalleryContent figcaption{
+	font-family: 'Work Sans';
+	font-weight: 400;
+	font-size: 12px;
+	cursor: pointer;
+}
+.modalGalleryContent .trash{
+	width: 17px;
+	height: 17px;
+	border-radius: 2px;
+	background-color: #000;
+	text-align: center;
+	position: absolute;
+	cursor: pointer;
+	top: 6px;
+	right: 6px;
+}
+.modalGalleryContent .trash i{
+	color: #FFF;
+	font-size: 10px;
+}
+.galleryButtons{
+	width: 420px;
+	margin-top: 47px;
+	padding-top: 38px;
+	text-align: center;
+	border-top: 1px solid #B3B3B3;
+}
+.picAdd{
+	width: 237px;
+	height: 36px;
+	border-radius: 60px;
+	font-weight: 700;
+	font-size: 14px;
+	margin-bottom: 23px;
+	font-family: 'Syne';
+	background: #1D6154;
+	color: #FFFFFF;
+	border: none;
+	cursor: pointer;
+}
+.galleryButtons p{
+	font-family: 'Syne';
+	font-weight: 400;
+	font-size: 14px;
+	color: #D65353;
+	cursor: pointer;
+}
+
+.icons{
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	font-size: 20px;
+}
+.fa-solid.fa-arrow-left, .fa-solid.fa-xmark{
+	cursor: pointer;
+}
+.addPicTitle{
+	margin-top: 15px;
+	margin-bottom: 36px;
+	font-size: 26px;
+	font-family: 'Work Sans';
+	font-weight: 400;
+	text-align: center;
+	color: #000;
+}
+.addBox{
+	width: 100%;
+	border-radius: 3px;
+	padding-top: 28px;
+	padding-bottom: 19px;
+	background: #E8F1F7;
+	text-align: center;
+	margin-bottom: 30px;
+}
+.fa-regular.fa-image{
+	display: block;
+	color: #B9C5CC;
+	font-size: 60px;
+	margin-bottom: 21px;
+}
+.addButton{
+	width: 173px;
+	height: 36px;
+	border-radius: 50px;
+	background: #CBD6DC;
+	border: none;
+	cursor: pointer;
+	font-family: 'Work Sans';
+	font-weight: 500;
+	font-size: 14px;
+	color: #306685;
+	margin-bottom: 7px;
+}
+.maxWeigth{
+	font-family: 'Work Sans';
+	font-weight: 400;
+	font-size: 10px;
+	color: #444444;
+}
+.modalContent form label{
+	display: flex;
+	flex-direction: column;
+}
+.modalContent form input, form select{
+	height: 51px;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	margin-top: 10px;
+	margin-bottom: 21px;
+	border: none;
+	outline: none;
+}
+.modalContent form select{
+	width: 100%;
+	height: 51px;
+	background-color: #FFF;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	margin-top: 10px;
+	margin-bottom: 47px;
+	border: none;
+	outline: none;
+}
+.addButtonSubmit{
+	width: 100%;
+	text-align: center;
+	padding-top: 32px;
+	border-top: 1px solid #B3B3B3;
+}
+.addButtonSubmit button{
+	width: 237px;
+	height: 36px;
+	background: #A7A7A7;
+	border-radius: 60px;
+	border: none;
+	cursor: pointer;
+	font-family: 'Syne';
+	font-weight: 700;
+	font-size: 14px;
+	color: #FFFFFF;
+}
+
+.test{
+	width: 78px;
+	height: 104px;
+}
+/*Modal end----------------------------------------------------------------------------------------*/

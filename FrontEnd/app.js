@@ -15,7 +15,6 @@ const createWork = (array) => {
   array.forEach((element) => {
     let figure = document.createElement("figure");
     figure.setAttribute("data-filter", element.category.id);
-    figure.classList.add("cards");
     document.querySelector(".gallery").appendChild(figure);
     let img = document.createElement("img");
     img.src = element.imageUrl;
@@ -129,3 +128,62 @@ if (localStorage.length > 0) {
   });
 }
 //Login End
+
+//Modal window open/close
+const edit = document.querySelectorAll(".edit");
+const modal = document.querySelector(".modal");
+const xMark = document.querySelectorAll(".fa-solid.fa-xmark");
+
+for (let i = 0; i < edit.length; i++) {
+  edit[i].addEventListener("click", () => {
+    modal.classList.remove("hide");
+  });
+}
+
+for (let i = 0; i < xMark.length; i++) {
+  xMark[i].addEventListener("click", () => {
+    modal.classList.add("hide");
+  });
+}
+
+//Modal window open/close end
+
+//import images into the modal
+fetch("http://localhost:5678/api/works")
+  .then((res) => res.json())
+  .then((modalImage) => {
+    imageDisplay(modalImage);
+  });
+
+let imageDisplay = (data) => {
+  data.forEach((element) => {
+    let figure = document.createElement("figure");
+    document.querySelector(".modalGalleryContent").appendChild(figure);
+    let img = document.createElement("img");
+    img.src = element.imageUrl;
+    img.crossOrigin = "anonymous";
+    figure.appendChild(img);
+    let figcaption = document.createElement("figcaption");
+    figcaption.innerText = "éditer";
+    figure.appendChild(figcaption);
+    let div = document.createElement("div");
+    div.classList.add("trash");
+    div.innerHTML = '<i class="fa-regular fa-trash-can"></i>';
+    figure.appendChild(div);
+  });
+};
+//import images into the modal end
+
+//switch from gallery to add pic
+const slideContainer = document.querySelector(".galleryAndAdd");
+const picAdd = document.querySelector(".picAdd");
+const arrowLeft = document.querySelector(".fa-solid.fa-arrow-left");
+
+picAdd.addEventListener("click", () => {
+  slideContainer.scrollLeft += 630;
+});
+
+arrowLeft.addEventListener("click", () => {
+  slideContainer.scrollLeft -= 630;
+});
+//switch from gallery to add pic end
