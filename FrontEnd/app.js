@@ -15,6 +15,7 @@ const createWork = (array) => {
   array.forEach((element) => {
     let figure = document.createElement("figure");
     figure.setAttribute("data-filter", element.category.id);
+    figure.classList.add("cards");
     document.querySelector(".gallery").appendChild(figure);
     let img = document.createElement("img");
     img.src = element.imageUrl;
