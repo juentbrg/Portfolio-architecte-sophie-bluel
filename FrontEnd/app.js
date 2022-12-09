@@ -172,6 +172,12 @@ let imageDisplay = (data) => {
     div.innerHTML = '<i class="fa-regular fa-trash-can"></i>';
     figure.appendChild(div);
   });
+  let figure = document.querySelector(".modalGalleryContent figure");
+  let arrowUpDownLeftRight = document.createElement("div");
+  arrowUpDownLeftRight.classList.add("arrowUpDownLeftRight");
+  arrowUpDownLeftRight.innerHTML =
+    '<i class="fa-solid fa-arrows-up-down-left-right"></i>';
+  figure.appendChild(arrowUpDownLeftRight);
 };
 //import images into the modal end
 
@@ -188,3 +194,39 @@ arrowLeft.addEventListener("click", () => {
   slideContainer.scrollLeft -= 630;
 });
 //switch from gallery to add pic end
+
+//add image from the form
+const addButton = document.querySelector("#addButton");
+addButton.addEventListener("change", (e) => {
+  if (e.target.files.length > 0) {
+    let src = URL.createObjectURL(e.target.files[0]);
+    const imgPreview = document.querySelector("#imgPreview");
+    imgPreview.src = src;
+    imgPreview.style.display = "block";
+    let addButtonV = document.querySelector(".addButton");
+    addButtonV.style.display = "none";
+  }
+});
+
+const addNewImage = document.querySelector("#addNewImage");
+addNewImage.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const addNewImage = document.querySelector("#addNewImage");
+  let formData = new FormData(addNewImage);
+  console.log([...formData]);
+  console.log("Bearer" + localStorage.getItem("token"));
+  fetch("http://localhost:5678/api/works", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "multipart/form-data",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+    body: formData,
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    });
+});
+//add image from the form end

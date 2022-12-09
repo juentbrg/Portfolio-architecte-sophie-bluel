@@ -69,23 +69,27 @@
 							<div><i class="fa-solid fa-xmark"></i></div>
 						</div>
 						<h2 class="addPicTitle">Ajout Photo</h2>
-						<div class="addBox">
-							<i class="fa-regular fa-image"></i>
-							<button class="addButton">+ Ajouter photo</button>
-							<p class="maxWeigth">jpg, png : 4mo max</p>
-						</div>
-						<form>
-							<label>Titre<input type="text"></label>
+						<form id="addNewImage">
+							<div class="addBox">
+								<div class="imagePreview">
+									<img src="" alt="" id="imgPreview">
+								</div>
+								<i class="fa-regular fa-image"></i>					
+								<input type="file" name="image" accept="/image*" id="addButton" required>
+								<label for="addButton" class="addButton">+ Ajouter une photo</label>
+								<p class="maxWeigth">jpg, png : 4mo max</p>
+							</div>
+							<label>Titre<input name="title" class="imageTitle" type="text" required></label>
 							<label for="modalCategory">Catégorie</label>
-							<select name="Catégorie" id="modalCategory">
-								<option value="Objets">Objets</option>
-								<option value="Appartements">Appartements</option>
-								<option value="Hotels & restaurants">Hôtel & restaurants</option>
+							<select name="category" id="modalCategory" required>
+								<option value="1">Objets</option>
+								<option value="2">Appartements</option>
+								<option value="3">Hôtel & restaurants</option>
 							</select>
+							<div class="addButtonSubmit">
+								<button type="submit">Valider</button>
+							</div>
 						</form>
-						<div class="addButtonSubmit">
-							<button type="submit">Valider</button>
-						</div>
 					</div>
 				</div>
 			</section>
