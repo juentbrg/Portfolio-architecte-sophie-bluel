@@ -14,6 +14,7 @@ fetch("http://localhost:5678/api/categories")
 const createWork = (array) => {
   array.forEach((element) => {
     let figure = document.createElement("figure");
+    figure.setAttribute("data-id", element.id);
     figure.setAttribute("data-filter", element.category.id);
     figure.classList.add("cards");
     document.querySelector(".gallery").appendChild(figure);
@@ -159,6 +160,7 @@ fetch("http://localhost:5678/api/works")
 let imageDisplay = (data) => {
   data.forEach((element) => {
     let figure = document.createElement("figure");
+    figure.setAttribute("data-id", element.id);
     document.querySelector(".modalGalleryContent").appendChild(figure);
     let img = document.createElement("img");
     img.src = element.imageUrl;
@@ -178,6 +180,25 @@ let imageDisplay = (data) => {
   arrowUpDownLeftRight.innerHTML =
     '<i class="fa-solid fa-arrows-up-down-left-right"></i>';
   figure.appendChild(arrowUpDownLeftRight);
+  //delete image from the form
+  let trash = document.querySelectorAll(".trash");
+  for (let i = 0; i < trash.length; i++) {
+    let parentTrash = trash[i].parentNode;
+    trash[i].addEventListener("click", () => {
+      fetch(
+        "http://localhost:5678/api/works/" +
+          parentTrash.getAttribute("data-id"),
+        {
+          method: "DELETE",
+          headers: {
+            Accept: "*/*",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+    });
+  }
+  //delete image from the form end
 };
 //import images into the modal end
 
@@ -213,13 +234,10 @@ addNewImage.addEventListener("submit", (e) => {
   e.preventDefault();
   const addNewImage = document.querySelector("#addNewImage");
   let formData = new FormData(addNewImage);
-  console.log([...formData]);
-  console.log("Bearer" + localStorage.getItem("token"));
   fetch("http://localhost:5678/api/works", {
     method: "POST",
     headers: {
       Accept: "application/json",
-      "Content-Type": "multipart/form-data",
       Authorization: "Bearer " + localStorage.getItem("token"),
     },
     body: formData,
