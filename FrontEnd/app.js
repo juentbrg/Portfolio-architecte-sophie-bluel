@@ -200,8 +200,29 @@ let imageDisplay = (data) => {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
         }
-      ).then((data) => {
-        console.log(data);
+      ).then(() => {
+        let galleryFigure = document.querySelectorAll(".gallery figure");
+        let modalGalleryFigure = document.querySelectorAll(
+          ".modalGalleryContent figure"
+        );
+        for (let i = 0; i < galleryFigure.length; i++) {
+          let figure = galleryFigure[i];
+          if (
+            figure.getAttribute("data-id") ===
+            parentTrash.getAttribute("data-id")
+          ) {
+            figure.remove();
+          }
+        }
+        for (let i = 0; i < modalGalleryFigure.length; i++) {
+          let modalFigure = modalGalleryFigure[i];
+          if (
+            modalFigure.getAttribute("data-id") ===
+            parentTrash.getAttribute("data-id")
+          ) {
+            modalFigure.remove();
+          }
+        }
       });
     });
   }
