@@ -200,7 +200,9 @@ let imageDisplay = (data) => {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
         }
-      );
+      ).then((data) => {
+        console.log(data);
+      });
     });
   }
   //delete image from the form end
@@ -223,6 +225,8 @@ arrowLeft.addEventListener("click", () => {
 
 //add image from the form
 const addButton = document.querySelector("#addButton");
+const addNewImage = document.querySelector("#addNewImage");
+
 addButton.addEventListener("change", (e) => {
   if (e.target.files.length > 0) {
     let src = URL.createObjectURL(e.target.files[0]);
@@ -231,10 +235,16 @@ addButton.addEventListener("change", (e) => {
     imgPreview.style.display = "block";
     let addButtonV = document.querySelector(".addButton");
     addButtonV.style.display = "none";
+    addNewImage.addEventListener("submit", () => {
+      src = URL.revokeObjectURL(e.target.files[0]);
+      imgPreview.style.display = "none";
+      addButtonV.style.display = "block";
+      addNewImage.reset();
+      slideContainer.scrollLeft -= 630;
+    });
   }
 });
 
-const addNewImage = document.querySelector("#addNewImage");
 addNewImage.addEventListener("submit", (e) => {
   e.preventDefault();
   const addNewImage = document.querySelector("#addNewImage");
@@ -249,7 +259,40 @@ addNewImage.addEventListener("submit", (e) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
+      createNewImage(data);
+      createNewImageInModal(data);
     });
 });
+
+const createNewImage = (datas) => {
+  let figure = document.createElement("figure");
+  figure.setAttribute("data-id", datas.id);
+  figure.setAttribute("data-filter", datas.categoryId);
+  figure.classList.add("cards");
+  document.querySelector(".gallery").appendChild(figure);
+  let img = document.createElement("img");
+  img.src = datas.imageUrl;
+  img.crossOrigin = "anonymous";
+  figure.appendChild(img);
+  let figcaption = document.createElement("figcaption");
+  figcaption.innerHTML = datas.title;
+  figure.appendChild(figcaption);
+};
+
+const createNewImageInModal = (datas) => {
+  let figure = document.createElement("figure");
+  figure.setAttribute("data-id", datas.id);
+  document.querySelector(".modalGalleryContent").appendChild(figure);
+  let img = document.createElement("img");
+  img.src = datas.imageUrl;
+  img.crossOrigin = "anonymous";
+  figure.appendChild(img);
+  let figcaption = document.createElement("figcaption");
+  figcaption.innerText = "éditer";
+  figure.appendChild(figcaption);
+  let div = document.createElement("div");
+  div.classList.add("trash");
+  div.innerHTML = '<i class="fa-regular fa-trash-can"></i>';
+  figure.appendChild(div);
+};
 //add image from the form end
