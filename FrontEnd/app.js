@@ -135,6 +135,7 @@ if (localStorage.length > 0) {
 const edit = document.querySelectorAll(".edit");
 const modal = document.querySelector(".modal");
 const xMark = document.querySelectorAll(".fa-solid.fa-xmark");
+const modalBackground = document.querySelector(".modalBackground");
 
 for (let i = 0; i < edit.length; i++) {
   edit[i].addEventListener("click", () => {
@@ -147,6 +148,10 @@ for (let i = 0; i < xMark.length; i++) {
     modal.classList.add("hide");
   });
 }
+
+modalBackground.addEventListener("click", () => {
+  modal.classList.add("hide");
+});
 
 //Modal window open/close end
 
