@@ -164,20 +164,7 @@ fetch("http://localhost:5678/api/works")
 
 let imageDisplay = (data) => {
   data.forEach((element) => {
-    let figure = document.createElement("figure");
-    figure.setAttribute("data-id", element.id);
-    document.querySelector(".modalGalleryContent").appendChild(figure);
-    let img = document.createElement("img");
-    img.src = element.imageUrl;
-    img.crossOrigin = "anonymous";
-    figure.appendChild(img);
-    let figcaption = document.createElement("figcaption");
-    figcaption.innerText = "éditer";
-    figure.appendChild(figcaption);
-    let div = document.createElement("div");
-    div.classList.add("trash");
-    div.innerHTML = '<i class="fa-regular fa-trash-can"></i>';
-    figure.appendChild(div);
+    createNewImageInModal(element);
   });
   let figure = document.querySelector(".modalGalleryContent figure");
   let arrowUpDownLeftRight = document.createElement("div");
@@ -185,50 +172,46 @@ let imageDisplay = (data) => {
   arrowUpDownLeftRight.innerHTML =
     '<i class="fa-solid fa-arrows-up-down-left-right"></i>';
   figure.appendChild(arrowUpDownLeftRight);
-  //delete image from the form
-  let trash = document.querySelectorAll(".trash");
-  for (let i = 0; i < trash.length; i++) {
-    let parentTrash = trash[i].parentNode;
-    trash[i].addEventListener("click", () => {
-      fetch(
-        "http://localhost:5678/api/works/" +
-          parentTrash.getAttribute("data-id"),
-        {
-          method: "DELETE",
-          headers: {
-            Accept: "*/*",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      ).then(() => {
-        let galleryFigure = document.querySelectorAll(".gallery figure");
-        let modalGalleryFigure = document.querySelectorAll(
-          ".modalGalleryContent figure"
-        );
-        for (let i = 0; i < galleryFigure.length; i++) {
-          let figure = galleryFigure[i];
-          if (
-            figure.getAttribute("data-id") ===
-            parentTrash.getAttribute("data-id")
-          ) {
-            figure.remove();
-          }
-        }
-        for (let i = 0; i < modalGalleryFigure.length; i++) {
-          let modalFigure = modalGalleryFigure[i];
-          if (
-            modalFigure.getAttribute("data-id") ===
-            parentTrash.getAttribute("data-id")
-          ) {
-            modalFigure.remove();
-          }
-        }
-      });
-    });
-  }
-  //delete image from the form end
 };
 //import images into the modal end
+
+//delete image from the form
+const OnTrashClick = (event) => {
+  let parentTrash = event.target.closest("[data-id]");
+  fetch(
+    "http://localhost:5678/api/works/" + parentTrash.getAttribute("data-id"),
+    {
+      method: "DELETE",
+      headers: {
+        Accept: "*/*",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    }
+  ).then(() => {
+    let galleryFigure = document.querySelectorAll(".gallery figure");
+    let modalGalleryFigure = document.querySelectorAll(
+      ".modalGalleryContent figure"
+    );
+    for (let i = 0; i < galleryFigure.length; i++) {
+      let figure = galleryFigure[i];
+      if (
+        figure.getAttribute("data-id") === parentTrash.getAttribute("data-id")
+      ) {
+        figure.remove();
+      }
+    }
+    for (let i = 0; i < modalGalleryFigure.length; i++) {
+      let modalFigure = modalGalleryFigure[i];
+      if (
+        modalFigure.getAttribute("data-id") ===
+        parentTrash.getAttribute("data-id")
+      ) {
+        modalFigure.remove();
+      }
+    }
+  });
+};
+//delete image from the form end
 
 //switch from gallery to add pic
 const slideContainer = document.querySelector(".galleryAndAdd");
@@ -313,6 +296,7 @@ const createNewImageInModal = (datas) => {
   figure.appendChild(figcaption);
   let div = document.createElement("div");
   div.classList.add("trash");
+  div.addEventListener("click", OnTrashClick);
   div.innerHTML = '<i class="fa-regular fa-trash-can"></i>';
   figure.appendChild(div);
 };
